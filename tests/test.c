@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../src/func.h"
+#include "../src/hashmap.h"
 
 void mul2(void *i){
     *(int*)i *= 2;
@@ -26,4 +27,8 @@ int main(int argc, char **argv){
     for(int i = 0; i < n; i++){
         printf("%d\n", *y[i]);
     }
+
+    hashmap_t *hm = hashmap_init(10);
+    hashmap_set(hm, "one", a + 4);
+    printf("%d\n", *(int*)hashmap_get(hm, "one")->value);
 }
