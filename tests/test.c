@@ -6,7 +6,7 @@ void mul2(void *i){
     *(int*)i *= 2;
 }
 
-int greather_than4(void *i){
+int greater_than4(void *i){
     if(*(int*)i > 4){
         return 1;
     }
@@ -22,7 +22,7 @@ int main(int argc, char **argv){
         printf("%d\n", *x[i]);
     }
     int *y[5];
-    int n = filter((void**)x, (void**)y, 5, greather_than4);
+    int n = filter((void**)x, (void**)y, 5, greater_than4);
     for(int i = 0; i < n; i++){
         printf("%d\n", *y[i]);
     }
