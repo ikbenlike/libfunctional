@@ -1,5 +1,4 @@
 #include <string.h>
-#include <stdio.h>
 
 size_t map(void **array, size_t len, void (*func)(void*)){
     size_t i;
