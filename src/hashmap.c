@@ -2,22 +2,6 @@
 #include <stdlib.h>
 #include "hashmap.h"
 
-/*typedef struct {
-    int key;
-    char *name;
-    void *value;
-} hashmap_element_t;
-
-typedef struct {
-    size_t len;
-    hashmap_element_t *list;
-} hashmap_vector_t;
-
-typedef struct {
-    size_t size;
-    hashmap_vector_t *map;
-} hashmap_t;*/
-
 hashmap_vector_t *hashmap_resize_vector(hashmap_vector_t *hv){
     hv->len *= 0.75;
     hashmap_element_t *a = realloc(hv->list, hv->len * sizeof(hashmap_element_t));
@@ -35,7 +19,8 @@ hashmap_t *hashmap_init(int size){
     hm->map = calloc(size, sizeof(hashmap_vector_t));
     hm->size = size;
     for(int i = 0; i < hm->size; i++){
-        hm->map[i].len = 1;
+        hm->map[i].len = 3;
+        hm->map[i].cursor = 0;
         hm->map[i].list = calloc(1, sizeof(hashmap_element_t));
     }
     return hm;
@@ -85,9 +70,9 @@ int hashmap_item_exists(hashmap_t *hm, char *inp){
 int hashmap_set(hashmap_t *hm, char *name, void *value){
     long int c = hashmap_standalone_hash(name);
     int n = c % hm->size;
-    hm->map[n].list[0].key = c;
-    hm->map[n].list[0].name = name;
-    hm->map[n].list[0].value = value;
+    hm->map[n].list[hm->map[n].cursor].key = c;
+    hm->map[n].list[hm->map[n].cursor].name = name;
+    hm->map[n].list[hm->map[n].cursor++].value = value;
     return 0;
 }
 

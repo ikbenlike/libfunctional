@@ -1,6 +1,8 @@
 #ifndef __HASHMAP_H__
     #define __HASHMAP_H__
 
+    #define HASHMAP_GETVAL(map, name, type) (*(type*)hashmap_get(map, name)->value)
+
     typedef struct {
         int key;
         char *name;
@@ -9,6 +11,7 @@
 
     typedef struct {
         size_t len;
+        size_t cursor;
         hashmap_element_t *list;
     } hashmap_vector_t;
 
