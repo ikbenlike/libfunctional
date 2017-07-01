@@ -1,0 +1,6 @@
+*.out
+*.so
+*.o
+*.lib
+*.zip
+*.obj
