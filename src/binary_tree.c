@@ -1,49 +1,75 @@
+#include <stdio.h>
 #include <stdlib.h>
+#include "binary_tree.h"
 
-typedef struct bt_node_t {
-    struct bt_node_t *left;
-    struct bt_node_t *right;
-    int value;
-} bt_node_t;
 
-void bt_insert(bt_node_t *tree, int value){
-    if(!tree->value){
-        tree->value = value;
+
+int bt_insert(bt_node_t *tree, int value, void *data){
+    if(tree == NULL){
+        return 1;
     }
-    else {
-        if(value < tree->value){
-            if(tree->left != NULL){
-                bt_insert(tree->left, value);
+    bt_node_t *head = tree;
+    while(head->value != 0){
+        if(value < head->value){
+            if(head->left != NULL){
+                head = head->left;
+                head->value = value;
+                head->data = data;
             }
             else {
-                tree->left = calloc(1, sizeof(bt_node_t));
-                tree->value = value;
+                head->left = calloc(1, sizeof(bt_node_t));
+                head = head->left;
+                head->value = value;
+                head->data = data;
             }
         }
-        else{
-            if(value >= tree->value){
-                if(tree->right != NULL){
-                    bt_insert(tree->right, value);
-                }
-                else {
-                    tree->right = calloc(1, sizeof(bt_node_t));
-                    tree->right->value = value;
-                }
+        else if(value > head->value){
+            if(head->right != NULL){
+                head = head->right;
+                head->value = value;
+                head->data = data;
             }
+            else {
+                head->right = calloc(1, sizeof(bt_node_t));
+                head = head->right;
+                head->value = value;
+                head->data = data;
+            }
+        }
+        else if(value == head->value){
+            head->data = data;
+            return 0;
         }
     }
+    if(head->value == 0){
+        head->value = value;
+        head->data = data;
+    }
+    return 1;
 }
 
 bt_node_t *bt_search(bt_node_t *tree, int value){
-    if(tree != NULL){    
-        if(tree->value == value){
-            return tree;
+    if(tree == NULL){
+        return NULL;
+    }
+    bt_node_t *head = tree;
+    while(1){
+        if(value < head->value){
+            head = head->left;
+            if(head == NULL){
+                return NULL;
+            }
+            continue;
         }
-        else if(tree->value < value){
-            return bt_search(tree->left, value);
+        else if(value > head->value){
+            head = head->right;
+            if(head == NULL){
+                return NULL;
+            }
+            continue;
         }
-        else {
-            return bt_search(tree->right, value);
+        else if(value == head->value){
+            return head;
         }
     }
     return NULL;

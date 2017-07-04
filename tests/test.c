@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../src/func.h"
 #include "../src/hashmap.h"
 #include "../src/linked_list.h"
+#include "../src/binary_tree.h"
 
 void mul2(void *i){
     *(int*)i *= 2;
@@ -38,4 +40,13 @@ int main(int argc, char **argv){
     linked_list_node_t *head = linked_list_construct(10);
     printf("linked list length: %d\n", linked_list_len(head));
     printf("'linked_list_free' exit code: %d\n", linked_list_free(head));
+
+    bt_node_t *tree = calloc(1, sizeof(bt_node_t));
+    bt_insert(tree, 5, "Hello!");
+    bt_insert(tree, 7, "There!");
+    bt_insert(tree, 3, "World!");
+
+    printf("%s\n", (char*)bt_search(tree, 5)->data);
+    printf("%s\n", (char*)bt_search(tree, 7)->data);
+    printf("%s\n", (char*)bt_search(tree, 3)->data);
 }
