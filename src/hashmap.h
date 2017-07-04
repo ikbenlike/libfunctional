@@ -1,7 +1,7 @@
 #ifndef __HASHMAP_H__
     #define __HASHMAP_H__
 
-    #define HASHMAP_GETVAL(map, name, type) (*(type*)hashmap_get(map, name)->value)
+    #define HASHMAP_GETVAL(map, name, type) ((type)hashmap_get(map, name)->value)
 
     typedef struct {
         int key;
