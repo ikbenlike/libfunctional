@@ -27,3 +27,11 @@ float average(int *array, size_t len){
     }
     return (float)sum/(float)i;
 }
+
+size_t reduce(void **array, void *res, size_t len, void (*func)(void*, void*)){
+    size_t i;
+    for(i = 0; i < len; i++){
+        func(res, array[i]);
+    }
+    return i;
+}

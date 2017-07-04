@@ -17,6 +17,10 @@ int greater_than4(void *i){
     return 0;
 }
 
+void add_voids(void *a, void *b){
+    *(int*)a += *(int*)b;
+}
+
 int main(int argc, char **argv){
     int a[] = {1, 2, 3, 4, 5};
     printf("the average value of a: %f\n", average(a, 5));
@@ -32,6 +36,10 @@ int main(int argc, char **argv){
     for(int i = 0; i < n; i++){
         printf("values from a greater than 4: %d\n", *y[i]);
     }
+
+    int red_res = 0;
+    reduce((void**)x, (void*)&red_res, 5, add_voids);
+    printf("the result of reducing x is: %d\n", red_res);
 
     hashmap_t *hm = hashmap_init(10);
     hashmap_set(hm, "one", a + 4);
