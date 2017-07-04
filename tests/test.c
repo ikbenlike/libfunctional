@@ -35,7 +35,7 @@ int main(int argc, char **argv){
 
     hashmap_t *hm = hashmap_init(10);
     hashmap_set(hm, "one", a + 4);
-    printf("hashmap value of 'one': %d\n", HASHMAP_GETVAL(hm, "one", int));
+    printf("hashmap value of 'one': %d\n", *HASHMAP_GETVAL(hm, "one", int*));
 
     linked_list_node_t *head = linked_list_construct(10);
     printf("linked list length: %d\n", linked_list_len(head));
@@ -46,7 +46,7 @@ int main(int argc, char **argv){
     bt_insert(tree, 7, "There!");
     bt_insert(tree, 3, "World!");
 
-    printf("%s\n", (char*)bt_search(tree, 5)->data);
-    printf("%s\n", (char*)bt_search(tree, 7)->data);
-    printf("%s\n", (char*)bt_search(tree, 3)->data);
+    printf("%s\n", BT_GETDATA(tree, 5, char*));
+    printf("%s\n", BT_GETDATA(tree, 7, char*));
+    printf("%s\n", BT_GETDATA(tree, 3, char*));
 }

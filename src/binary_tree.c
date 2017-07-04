@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include "binary_tree.h"
 
-
-
 int bt_insert(bt_node_t *tree, int value, void *data){
     if(tree == NULL){
         return 1;
