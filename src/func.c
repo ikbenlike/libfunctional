@@ -1,4 +1,7 @@
+#include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
+#include "func.h"
 
 size_t map(void **array, size_t len, void (*func)(void*)){
     size_t i;
@@ -34,4 +37,47 @@ size_t reduce(void **array, void *res, size_t len, void (*func)(void*, void*)){
         func(res, array[i]);
     }
     return i;
+}
+
+either_t *either_init(int side, void *data){
+    either_t *e = calloc(1, sizeof(either_t));
+    if(side){
+        e->right = data;
+    }
+    else {
+        e->left = data;
+    }
+}
+
+either_t *either(either_t *e, void *(*l)(void*), void *(*r)(void*)){
+    if(e == NULL){
+        return either_init(S_LEFT, strcpy(calloc(19, sizeof(char)), "arg[0] 'e' == NULL"));
+    }
+    else if(e->left == NULL && e->right != NULL){
+        return either_init(S_RIGHT, r(e->right));
+    }
+    else if(e->right == NULL && e->left != NULL){
+        return either_init(S_RIGHT, l(e->left));
+    }
+    return either_init(S_LEFT, strcpy(calloc(22, sizeof(char)), "arg[0] 'e' is invalid"));
+}
+
+int isright(either_t *e){
+    if(e == NULL){
+        return 0;
+    }
+    else if(e->right != NULL){
+        return 1;
+    }
+    return 0;
+}
+
+int isleft(either_t *e){
+    if(e == NULL){
+        return 0;
+    }
+    else if(e->left != NULL){
+        return 1;
+    }
+    return 0;
 }

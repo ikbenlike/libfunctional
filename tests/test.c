@@ -21,6 +21,29 @@ void add_voids(void *a, void *b){
     *(int*)a += *(int*)b;
 }
 
+either_t *add_test(int a, int b){
+    if(a != b){
+        int *c = calloc(1, sizeof(int));
+        int x = a + b;
+        memcpy(c, &x, sizeof(int));
+        return either_init(S_RIGHT, (void*)c);
+    }
+    else {
+        return either_init(S_LEFT, strcpy(calloc(7, sizeof(char)), "a == b"));
+    }
+}
+
+void *wrap_puts(void *data){
+    puts((char*)data);
+    return data;
+}
+
+void *wrap_printf_int(void *data){
+    int *i = (int*)data;
+    printf("%d\n", *i);
+    return data;
+}
+
 int main(int argc, char **argv){
     int a[] = {1, 2, 3, 4, 5};
     printf("the average value of a: %f\n", average(a, 5));
@@ -40,6 +63,11 @@ int main(int argc, char **argv){
     int red_res = 0;
     reduce((void**)x, (void*)&red_res, 5, add_voids);
     printf("the result of reducing x is: %d\n", red_res);
+
+    either_t *e = add_test(10, 10);
+    either(e, wrap_puts, wrap_printf_int);
+    e = add_test(10, 14);
+    either(e, wrap_puts, wrap_printf_int);
 
     hashmap_t *hm = hashmap_init(10);
     hashmap_set(hm, "one", a + 4);
