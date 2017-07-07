@@ -41,6 +41,7 @@ size_t reduce(void **array, void *res, size_t len, void (*func)(void*, void*)){
 
 either_t *either_init(int side, void *data){
     either_t *e = calloc(1, sizeof(either_t));
+    e->side = side;
     if(side){
         e->right = data;
     }
@@ -63,21 +64,16 @@ either_t *either(either_t *e, void *(*l)(void*), void *(*r)(void*)){
 }
 
 int isright(either_t *e){
-    if(e == NULL){
-        return 0;
-    }
-    else if(e->right != NULL){
-        return 1;
-    }
-    return 0;
+    return e->side == S_RIGHT;
 }
 
 int isleft(either_t *e){
-    if(e == NULL){
-        return 0;
-    }
-    else if(e->left != NULL){
-        return 1;
-    }
-    return 0;
+    return !isright(e);
+}
+
+error_t *error_init(int n){
+    error_t *er = calloc(1, sizeof(error_t));
+    er->err = n;
+    er->str = strerror(n);
+    return er;
 }
