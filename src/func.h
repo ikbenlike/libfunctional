@@ -17,7 +17,7 @@
 
     typedef struct {
         int err;
-        char *str;
+        char *const str;
     } error_t;
 
     size_t map(void **array, size_t len, void (*func)(void*));
@@ -30,5 +30,5 @@
     int isright(either_t *e);
     int isleft(either_t *e);
 
-    error_t *error_init(int errno);
+    error_t *error_init(int n);
 #endif
