@@ -6,6 +6,7 @@
 
     #define LEFT(data) (either_init(S_LEFT, data))
     #define RIGHT(data) (either_init(S_RIGHT, data))
+    #define ERROR_FROM_EITHERP(ei) ((error_t*)ei->left)
 
     typedef struct {
         int side;
