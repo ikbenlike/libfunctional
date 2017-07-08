@@ -5,5 +5,7 @@
     #include "hashmap.h"
     #include "linked_list.h"
     #include "binary_tree.h"
+    #include "misc.h"
+    #include "vector.h"
 
 #endif
