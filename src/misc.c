@@ -33,3 +33,55 @@ either_t *ew_realloc(void *ptr, size_t size){
         return LEFT(error_init(errno));
     }
 }
+
+either_t *ew_getenv(const char *name){
+    char *res = getenv(name);
+    if(res != NULL){
+        return RIGHT(res);
+    }
+    else {
+        return LEFT(res);
+    }
+}
+
+either_t *ew_memchr(const void *s, int c, size_t n){
+    void *res = memchr(s, c, n);
+    if(res != NULL){
+        return RIGHT(res);
+    }
+    else {
+        return LEFT(res);
+    }
+}
+
+either_t *ew_strchr(const char *s, int c){
+    char *res = strchr(s, c);
+    if(res != NULL){
+        return RIGHT(res);
+    }
+    else {
+        return LEFT(res);
+    }
+}
+
+either_t *ew_strrchr(const char *s, int c){
+    char *res = strrchr(s, c);
+    if(res != NULL){
+        return RIGHT(res);
+    }
+    else {
+        return LEFT(res);
+    }
+}
+
+either_t *ew_puts(const char *s){
+    int res = puts(s);
+    if(res != EOF){
+        return RIGHT(res);
+    }
+    else {
+        return LEFT(res);
+    }
+}
+
+
