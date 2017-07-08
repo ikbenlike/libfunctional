@@ -75,8 +75,9 @@ either_t *ew_strrchr(const char *s, int c){
 }
 
 either_t *ew_puts(const char *s){
-    int res = puts(s);
-    if(res != EOF){
+    int *res = calloc(1, sizeof(int));
+    *res = puts(s);
+    if(*res != EOF){
         return RIGHT(res);
     }
     else {
