@@ -17,7 +17,7 @@
 
     typedef struct {
         int err;
-        char *const str;
+        const char *str;
     } error_t;
 
     size_t map(void **array, size_t len, void (*func)(void*));
