@@ -5,6 +5,7 @@
 #include "../src/hashmap.h"
 #include "../src/linked_list.h"
 #include "../src/binary_tree.h"
+#include "../src/vector.h"
 
 void mul2(void *i){
     *(int*)i *= 2;
@@ -85,4 +86,34 @@ int main(int argc, char **argv){
     printf("%s\n", BT_GETDATA(tree, 5, char*));
     printf("%s\n", BT_GETDATA(tree, 7, char*));
     printf("%s\n", BT_GETDATA(tree, 3, char*));
+
+    vector_t *vec = vector_init(5);
+    vector_append(vec, "Hello, World!");
+    e = vector_at_index(vec, 0);
+    if(isleft(e)){
+        puts(ERROR_FROM_EITHERP(e)->str);
+    }
+    else {
+        puts((char*)e->right);
+    }
+
+    e = vector_at_index(vec, 10);
+    if(isleft(e)){
+        puts(ERROR_FROM_EITHERP(e)->str);
+    }
+    else {
+        puts((char*)e->right);
+    }
+
+    vector_insert(vec, "Hello there!", 9);
+    e = vector_at_index(vec, 9);
+    if(isleft(e)){
+        puts(ERROR_FROM_EITHERP(e)->str);
+    }
+    else if(isright(e)){
+        puts((char*)e->right);
+    }
+
+    vector_free(vec);
+    free(e);
 }
